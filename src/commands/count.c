@@ -3,7 +3,9 @@
 #include <string.h>
 
 const char *DELIMITER = " ";
-const int VOWELS_QUAN = 5;
+const char CONSONANTS[] = "BCDFGHJKLMNPQRSTVWXYZ";
+const char VOWELS[] = "AEIOU";
+const char LETTERS[] = "AEIOUBCDFGHJKLMNPQRSTVWXYZ";
 
 void word_count(char *str) {
   const char *str_token = strtok(str, DELIMITER);
@@ -17,40 +19,27 @@ void word_count(char *str) {
   printf("word count: %d\n", word_count);
 }
 
-void letter_count(const char *str) {
-  int chars_count = 0;
-  for (int i = 0; i < strlen(str); i++) {
-    if (str[i] != ' ')
-      chars_count++;
-  }
-  printf("letters found: %d\n", chars_count);
-}
-
-void consonant_count(const char *str) {
-  const char consonants[] = "BCDFGHJKLMNPQRSTVWXYZ";
-  int consonants_found = 0;
-
-  for (int i = 0; i < strlen(str); i++) {
-    for (int j = 0; j < strlen(consonants); j++) {
-      if (toupper(str[i]) == consonants[j]) {
-        consonants_found++;
+void chars_found_in_list(const char *input_str, const char *chars_list,
+                         const char *text_to_print) {
+  int char_count = 0;
+  for (int i = 0; i < strlen(input_str); i++) {
+    for (int j = 0; j < strlen(chars_list); j++) {
+      if (toupper(input_str[i]) == chars_list[j]) {
+        char_count++;
       }
     }
   }
+  printf("%s found: %d\n", text_to_print, char_count);
+}
 
-  printf("consotants found: %d\n", consonants_found);
+void letter_count(const char *str) {
+  chars_found_in_list(str, LETTERS, "letters");
+}
+
+void consonant_count(const char *str) {
+  chars_found_in_list(str, CONSONANTS, "consonants");
 }
 
 void vowel_count(const char *str) {
-  const char vowels[] = "AEIOU";
-  int vowels_found = 0;
-
-  for (int i = 0; i < strlen(str); i++) {
-    for (int j = 0; j < VOWELS_QUAN; j++) {
-      if (toupper(str[i]) == vowels[j])
-        vowels_found++;
-    }
-  }
-
-  printf("vowels found: %d\n", vowels_found);
+  chars_found_in_list(str, VOWELS, "vowels");
 }
