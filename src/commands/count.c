@@ -23,7 +23,7 @@ void letter_count(const char *str) {
     if (str[i] != ' ')
       chars_count++;
   }
-  printf("characters found: %d\n", chars_count);
+  printf("letters found: %d\n", chars_count);
 }
 
 void consonant_count(const char *str) {
