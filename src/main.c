@@ -84,7 +84,7 @@ int main(int argc, const char **argv) {
   int selected_flag = validate_flags(argv[4]);
 
   int verbose_flag = 0;
-  if (strcmp(argv[5], "-v") == 0) {
+  if (strcmp(argv[5], "-V") == 0) {
     verbose_flag = 1;
   }
 

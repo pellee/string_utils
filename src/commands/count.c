@@ -6,7 +6,8 @@ const char *DELIMITER = " ";
 const char CONSONANTS[] = "BCDFGHJKLMNPQRSTVWXYZ";
 const char VOWELS[] = "AEIOU";
 const char LETTERS[] = "AEIOUBCDFGHJKLMNPQRSTVWXYZ";
-const char PUNTUACTION_MARKS[] = ".?!,;:-()[]{}'""–—";
+const char PUNTUACTION_MARKS[] = ".?!,;:-()[]{}'"
+                                 "–—";
 
 void word_count(char *str) {
   const char *str_token = strtok(str, DELIMITER);
@@ -33,6 +34,28 @@ void chars_found_in_list(const char *input_str, const char *chars_list,
   printf("%s found: %d\n", text_to_print, char_count);
 }
 
+void chars_found_in_list_verbose(const char *input_str, const char *chars_list,
+                                 const char *text_to_print) {
+  int string_length = strlen(chars_list);
+  int char_total_count = 0;
+  int each_char_count[string_length] = {};
+
+  for (int i = 0; i < strlen(input_str); i++) {
+    for (int j = 0; j < string_length; j++) {
+      if (toupper(input_str[i]) == chars_list[j]) {
+        each_char_count[j]++;
+        char_total_count++;
+      }
+    }
+  }
+  printf("%s found: %d\n", text_to_print, char_total_count);
+  for (int i = 0; i < string_length; i++) {
+    if (each_char_count[i] != 0) {
+      printf("%c found %d times.\n", chars_list[i], each_char_count[i]);
+    }
+  }
+}
+
 void letter_count(const char *str) {
   chars_found_in_list(str, LETTERS, "letters");
 }
@@ -41,7 +64,12 @@ void consonant_count(const char *str) {
   chars_found_in_list(str, CONSONANTS, "consonants");
 }
 
-void vowel_count(const char *str, int *verbose_flag) {
+void vowel_count(const char *str, const int *verbose_flag) {
+  if (*verbose_flag == 1) {
+    chars_found_in_list_verbose(str, VOWELS, "vowels");
+    return;
+  }
+
   chars_found_in_list(str, VOWELS, "vowels");
 }
 
