@@ -36,9 +36,10 @@ int validate_mandatory_flags(const char *mflag) {
 }
 
 int validate_flags(const char *flag) {
-  const char *flags[] = {"--words",   "-w", "--vowels",    "-v",
-                         "--letters", "-l", "--consonats", "-c"};
-  const int VALID_FLAGS_LENGTH = 8;
+  const char *flags[] = {"--words",       "-w", "--vowels",    "-v",
+                         "--letters",     "-l", "--consonats", "-c",
+                         "--puntuaction", "-p"};
+  const int VALID_FLAGS_LENGTH = 10;
   int i;
 
   for (i = 0; i < VALID_FLAGS_LENGTH; i++) {
@@ -56,6 +57,9 @@ int validate_flags(const char *flag) {
       case 6:
       case 7:
         return 4;
+      case 8:
+      case 9:
+        return 5;
       }
     }
   }
@@ -79,18 +83,26 @@ int main(int argc, const char **argv) {
   const char *text = strdup(argv[3]);
   int selected_flag = validate_flags(argv[4]);
 
+  int verbose_flag = 0;
+  if (strcmp(argv[5], "-v") == 0) {
+    verbose_flag = 1;
+  }
+
   switch (selected_flag) {
   case 1:
     word_count((char *)text);
     break;
   case 2:
-    vowel_count(text);
+    vowel_count(text, &verbose_flag);
     break;
   case 3:
     letter_count(text);
     break;
   case 4:
     consonant_count(text);
+    break;
+  case 5:
+    puntaction_marks_count(text);
     break;
   default:
     printf("flag not found!\n");

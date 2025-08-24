@@ -6,6 +6,7 @@ const char *DELIMITER = " ";
 const char CONSONANTS[] = "BCDFGHJKLMNPQRSTVWXYZ";
 const char VOWELS[] = "AEIOU";
 const char LETTERS[] = "AEIOUBCDFGHJKLMNPQRSTVWXYZ";
+const char PUNTUACTION_MARKS[] = ".?!,;:-()[]{}'""–—";
 
 void word_count(char *str) {
   const char *str_token = strtok(str, DELIMITER);
@@ -40,6 +41,10 @@ void consonant_count(const char *str) {
   chars_found_in_list(str, CONSONANTS, "consonants");
 }
 
-void vowel_count(const char *str) {
+void vowel_count(const char *str, int *verbose_flag) {
   chars_found_in_list(str, VOWELS, "vowels");
+}
+
+void puntaction_marks_count(const char *str) {
+  chars_found_in_list(str, PUNTUACTION_MARKS, "puntuaction marks");
 }
