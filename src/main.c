@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <string.h>
 
+const char *usage =
+    "\n"
+    "   stru <command> [options]\n"
+    "\n"
+    "   options:\n"
+    "\n"
+    "       -h, --help    Show this text\n"
+    "       -t, --text    Input text to process\n"
+    "       -f, --file    Input text to process\n"
+    "\n"
+    "   comands:\n"
+    "\n"
+    "       count         Count elements in the string/text file\n";
+
 int validate_commands(const char *cmd) {
   const char *commands[] = {"count"};
   const int VALID_CMD_LENGTH = 1;
@@ -68,6 +82,11 @@ int validate_flags(const char *flag) {
 }
 
 int main(int argc, const char **argv) {
+  if (argv[1] == NULL || strcmp(argv[1], "-h") || strcmp(argv[1], "--help")) {
+    printf("%s", usage);
+    return 0;
+  }
+
   int selected_cmd = validate_commands(argv[1]);
   if (selected_cmd == 0) {
     printf("command not found!\n");
